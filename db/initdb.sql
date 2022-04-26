@@ -1,0 +1,23 @@
+CREATE DATABASE IF NOT EXISTS Moon;
+
+USE Moon;
+
+CREATE TABLE IF NOT EXISTS member(
+  id INT(10) PRIMARY KEY AUTO_INCREMENT,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  name VARCHAR(50) NOT NULL,
+  join_date DATETIME NOT NULL,
+  last_login_time DATETIME NOT NULL);
+
+CREATE TABLE IF NOT EXISTS unconnected_member(
+  id INT(10) PRIMARY KEY,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  name VARCHAR(50) NOT NULL,
+  join_date DATETIME NOT NULL,
+  last_login_time DATETIME NOT NULL);
+
+CREATE TABLE IF NOT EXISTS login_check(
+  id INT(10) PRIMARY KEY,
+  last_idx INT(10) NOT NULL,
+  last_check_time DATETIME NOT NULL,
+  is_complete BOOLEAN NOT NULL);

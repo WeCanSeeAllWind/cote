@@ -1,0 +1,31 @@
+version: '3'
+services:
+  db:
+    platform: linux/x86_64
+    volumes:
+      - ./db/data:/var/lib/mysql
+    build:
+      context: ./db
+      dockerfile: dockerfile
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+      MYSQL_DATABASE: Moon
+    command:
+      - --character-set-server=utf8 
+      - --collation-server=utf8_unicode_ci
+    restart: always
+  web:
+    image: nginx:latest
+    volumes:
+      - ./web:/var/www/html
+      - ./web/conf:/etc/nginx/conf.d
+    ports:
+      - 80:80
+  fpm:
+    build: ./fpm
+    volumes:
+      - ./fpm:/var/www/html
+    ports:
+      - 9000:9000
